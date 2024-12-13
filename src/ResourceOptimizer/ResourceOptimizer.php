@@ -77,7 +77,7 @@ class ResourceOptimizer extends PluginBase implements Listener {
 
 class ResourceCleanupTask extends \pocketmine\scheduler\Task {
 
-    private $plugin;
+    private ResourceOptimizer $plugin;
 
     public function __construct(ResourceOptimizer $plugin) {
         $this->plugin = $plugin;
