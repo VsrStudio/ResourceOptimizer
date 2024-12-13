@@ -26,7 +26,7 @@ class ResourceOptimizer extends PluginBase implements Listener {
     }
 
     public function checkEntityCount(): void {
-        foreach ($this->getServer()->getLevelManager()->getLevels() as $level) {
+        foreach ($this->getServer()->getWorldManager()->getWorlds() as $level) {
             $entityCount = count($level->getEntities());
             if ($entityCount > $this->config->get("max_entity_count")) {
                 $this->getLogger()->warning("Entity count exceeded! Current count: $entityCount");
@@ -55,7 +55,7 @@ class ResourceOptimizer extends PluginBase implements Listener {
     }
 
     public function cleanupWorld(): void {
-        foreach ($this->getServer()->getLevelManager()->getLevels() as $level) {
+        foreach ($this->getServer()->getWorldManager()->getWorlds() as $level) {
             if ($this->config->get("cleanup_inactive_entities")) {
                 $this->removeInactiveEntities($level);
             }
