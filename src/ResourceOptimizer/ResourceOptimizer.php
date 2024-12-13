@@ -83,7 +83,7 @@ class ResourceCleanupTask extends \pocketmine\scheduler\Task {
         $this->plugin = $plugin;
     }
 
-    public function onRun(int $currentTick): void {
+    abstract public function onRun(int $currentTick): void;
         $this->plugin->checkEntityCount();
         $this->plugin->monitorWorldMemoryUsage();
         $this->plugin->cleanupWorld();
