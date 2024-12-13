@@ -5,8 +5,8 @@ namespace ResourceOptimizer;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 use pocketmine\event\server\DataPacketReceiveEvent;
+use pocketmine\world\World;
 use pocketmine\entity\Entity;
-use pocketmine\level\Level;
 use pocketmine\utils\Config;
 use pocketmine\Server;
 
@@ -26,7 +26,7 @@ class ResourceOptimizer extends PluginBase implements Listener {
     }
 
     public function checkEntityCount(): void {
-        foreach ($this->getServer()->getLevels() as $level) {
+        foreach ($this->getServer()->getLevelManager()->getLevels() as $level) {
             $entityCount = count($level->getEntities());
             if ($entityCount > $this->config->get("max_entity_count")) {
                 $this->getLogger()->warning("Entity count exceeded! Current count: $entityCount");
@@ -35,7 +35,7 @@ class ResourceOptimizer extends PluginBase implements Listener {
         }
     }
 
-    public function removeExcessEntities(Level $level): void {
+    public function removeExcessEntities(World $level): void {
         $entities = $level->getEntities();
         $excessEntities = array_slice($entities, $this->config->get("max_entity_count"));
         foreach ($excessEntities as $entity) {
@@ -55,18 +55,18 @@ class ResourceOptimizer extends PluginBase implements Listener {
     }
 
     public function cleanupWorld(): void {
-        foreach ($this->getServer()->getLevels() as $level) {
+        foreach ($this->getServer()->getLevelManager()->getLevels() as $level) {
             if ($this->config->get("cleanup_inactive_entities")) {
                 $this->removeInactiveEntities($level);
             }
         }
     }
 
-    public function removeInactiveEntities(Level $level): void {
+    public function removeInactiveEntities(World $level): void {
         $entities = $level->getEntities();
         foreach ($entities as $entity) {
             if ($entity instanceof Entity) {
-                if (!$entity->isAlive() || $entity->getLastMoveTime() > 600) {
+                if (!$entity->isAlive()) {
                     $entity->kill();
                     $this->getLogger()->info("Inactive entity removed: " . get_class($entity));
                 }
