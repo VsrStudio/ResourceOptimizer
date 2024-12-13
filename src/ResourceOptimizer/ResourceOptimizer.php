@@ -8,6 +8,7 @@ use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\world\World;
 use pocketmine\entity\Entity;
 use pocketmine\utils\Config;
+use pocketmine\scheduler\Task;
 use pocketmine\Server;
 
 class ResourceOptimizer extends PluginBase implements Listener {
@@ -83,7 +84,7 @@ class ResourceCleanupTask extends \pocketmine\scheduler\Task {
         $this->plugin = $plugin;
     }
 
-    abstract public function onRun(int $currentTick): void;
+    public function onRun(int $currentTick): void {
         $this->plugin->checkEntityCount();
         $this->plugin->monitorWorldMemoryUsage();
         $this->plugin->cleanupWorld();
