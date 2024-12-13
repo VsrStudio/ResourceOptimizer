@@ -1,0 +1,5 @@
+resource_cleanup_interval: 300 # Seconds, interval to clean up unused resources
+max_entity_count: 1000 # Maximum number of entities allowed in the world before warning
+max_world_memory_usage: 512 # MB, memory usage threshold for the world before warning
+enable_auto_cleanup: true # Enable automatic cleanup if resource usage exceeds limits
+cleanup_inactive_entities: true # Remove inactive or non-moving entities
