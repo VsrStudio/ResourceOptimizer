@@ -21,6 +21,17 @@ The `ResourceOptimizer` plugin helps optimize resource usage on PocketMine-MP se
 
 ---
 
+Usage
+
+Once installed, the plugin runs automatically based on the configuration settings. It will:
+Monitor the number of entities in the world.
+Check memory usage of the world.
+Clean up unused resources.
+Remove excess or inactive entities if the limits are exceeded.
+You can check the plugin's logs to see when actions are taken, such as when excess entities are removed or when memory usage exceeds the limit.
+
+---
+
 ## Configuration
 
 The plugin uses a `config.yml` file that can be customized to suit your needs. Below is the default configuration file:
